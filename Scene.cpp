@@ -39,7 +39,7 @@ void Scene::generate()
                     const auto albedo = Utils::RandFloat() * COLOUR_BLUE;
                     shapes.emplace_back(std::make_unique<Sphere>(centre, radius, std::make_unique<Lambertian>(albedo)));
                 }
-                else if(randValue < 0.95f)
+                else if(randValue < 0.90f)
                 {
                     const auto albedo = Utils::RandFloat() * COLOUR_ORANGE;
                     shapes.emplace_back(std::make_unique<Sphere>(centre, radius, std::make_unique<Metal>(albedo, 0.5f * Utils::RandFloat())));

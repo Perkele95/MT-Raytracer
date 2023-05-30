@@ -98,11 +98,8 @@ void Raytracer::compute(SharedData *shared)
             }
 
             shared->mutex.lock();
-
-            // Row index is reversed to avoid producing an upside down image
-            const auto reversedIndex = data.height - data.rowIndex - 1;
-            shared->rows[reversedIndex] = std::move(row);
-
+            // The index math flips the image the right way
+            shared->rows[data.height - data.rowIndex - 1] = std::move(row);
             shared->mutex.unlock();
         }
         else
