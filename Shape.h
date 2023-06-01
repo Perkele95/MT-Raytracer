@@ -10,10 +10,10 @@ struct Material;
 
 struct HitData
 {
-    float t;
-    vec3<float> point;
-    vec3<float> normal;
-    Material *material;
+    float t = 0.0f;
+    vec3<float> point = {};
+    vec3<float> normal = {};
+    Material *material = nullptr;
 };
 
 class Shape

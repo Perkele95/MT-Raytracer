@@ -10,20 +10,13 @@ Raytracer::Raytracer(const RaytracingSettings &settings): st(settings), scene(&s
     createImage();
 }
 
-void Raytracer::gammaCorrect(vec3<float> &v)
-{
-    v.x = std::sqrt(v.x);
-    v.y = std::sqrt(v.y);
-    v.z = std::sqrt(v.z);
-}
-
 void Raytracer::createImage()
 {
     std::ofstream output(st.filename + ".ppm");
     output << "P3\n" << st.imageX << " " << st.imageY << "\n255\n";
 
-    auto lookFrom = vec3(12.0f, 1.6f, 2.5f);
-    auto lookAt =  vec3(0.0f, 0.0f, 0.0f);
+    const auto lookFrom = vec3(12.0f, 1.6f, 2.5f);
+    const auto lookAt =  vec3(0.0f, 0.0f, 0.0f);
 
     float focus = length(lookFrom - lookAt);
     auto camera = Camera(lookFrom, lookAt, st.fov, float(st.imageX) / float(st.imageY), st.aperture, focus);
@@ -91,6 +84,12 @@ void Raytracer::compute(SharedData *shared)
                     colour += shared->scene->getRayColour(shared->camera->getRay(u, v), 0);
                 }
                 colour /= float(data.samplingLevel);
+
+                auto gammaCorrect = [](vec3<float> &v){
+                    v.x = std::sqrt(v.x);
+                    v.y = std::sqrt(v.y);
+                    v.z = std::sqrt(v.z);
+                };
 
                 gammaCorrect(colour);
 

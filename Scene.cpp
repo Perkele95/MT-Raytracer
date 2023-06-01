@@ -23,12 +23,12 @@ void Scene::generate()
     shapes.emplace_back(std::make_unique<Sphere>(vec3(-4.0f, 1.0f, 0.0f), 1.0f, std::make_unique<Metal>(vec3(0.17f, 0.28f, 0.46f), 0.2f)));
     shapes.emplace_back(std::make_unique<Sphere>(vec3(0.0f, 1.0f, 0.0f), 1.0f, std::make_unique<Dielectric>(1.5f)));
 
-    for (int x = -X_RANGE; x < X_RANGE; ++x)
+    for (int32_t x = -X_RANGE; x < X_RANGE; ++x)
     {
-        for (int y = -Y_RANGE; y < Y_RANGE; ++y)
+        for (int32_t y = -Y_RANGE; y < Y_RANGE; ++y)
         {
             const auto radius = Utils::RandFloat() * 0.15f + 0.1f;
-            const auto centre = vec3(float(x) + 0.9f * Utils::RandFloat(), radius, y * 0.9f * Utils::RandFloat());
+            const auto centre = vec3(float(x) + 0.9f * Utils::RandFloat(), radius, float(y) * 0.9f * Utils::RandFloat());
 
             if(length(centre - vec3(4.0f, 0.2f, 0.0f)) > 0.9f)
             {
@@ -55,9 +55,8 @@ void Scene::generate()
 
 vec3<float> Scene::getRayColour(const Ray &ray, int32_t depth) const
 {
-    HitData hit{};
+    HitData hit;
 
-    // TODO: swap magic numbers with text
     if(trace(ray, hit))
     {
         auto scattered = Ray();
@@ -84,7 +83,7 @@ bool Scene::trace(const Ray &ray, HitData &hit) const
 
     bool result = false;
     float closest = TMAX;
-    HitData temp{};
+    HitData temp;
 
     for (const auto &shape : shapes)
     {
