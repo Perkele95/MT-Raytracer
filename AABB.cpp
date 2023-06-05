@@ -23,3 +23,14 @@ bool AABB::hit(const Ray &ray, double t_min, double t_max) const
     }
     return true;
 }
+
+AABB AABB::Combine(const AABB &a, const AABB &b)
+{
+    const auto minimum = vec3(std::fmin(a.minimum.x, b.minimum.x),
+                              std::fmin(a.minimum.y, b.minimum.y),
+                              std::fmin(a.minimum.y, b.minimum.y));
+    const auto maximum = vec3(std::fmax(a.minimum.x, b.minimum.x),
+                              std::fmax(a.minimum.y, b.minimum.y),
+                              std::fmax(a.minimum.y, b.minimum.y));
+    return AABB(minimum, maximum);
+}

@@ -5,6 +5,7 @@
 #pragma once
 
 #include "Ray.h"
+#include "AABB.h"
 
 struct Material;
 
@@ -21,4 +22,5 @@ class Shape
 public:
     virtual ~Shape() = default;
     virtual bool hit(const Ray &ray, float tMin, float tMax, HitRecord &hit) const = 0;
+    virtual bool boundingBox(double t0, double t1, AABB &box) const = 0;
 };

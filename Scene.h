@@ -19,6 +19,7 @@ public:
 
 private:
     bool trace(const Ray &ray, HitRecord &hit) const;
+    bool getBounds(double t0, double t1, AABB &box) const;
 
     const RaytracingSettings *st;
     std::vector<std::unique_ptr<Shape>> shapes;

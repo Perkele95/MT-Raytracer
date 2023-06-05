@@ -14,5 +14,7 @@ public:
 
     [[nodiscard]] bool hit(const Ray& ray, double t_min, double t_max) const;
 
-    vec3<float> minimum, maximum;
+    static AABB Combine(const AABB &a, const AABB &b);
+
+    vec3<float> minimum{}, maximum{};
 };

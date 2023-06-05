@@ -94,3 +94,20 @@ bool Scene::trace(const Ray &ray, HitRecord &hit) const
 
     return result;
 }
+
+bool Scene::getBounds(double t0, double t1, AABB &box) const
+{
+    bool first = true;
+
+    for (const auto &shape : shapes)
+    {
+        AABB temp;
+        if(!shape->boundingBox(t0, t1, temp))
+            return false;
+
+        box = first ? temp : AABB::Combine(box, temp);
+        first = false;
+    }
+
+    return true;
+}

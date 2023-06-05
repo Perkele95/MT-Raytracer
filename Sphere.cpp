@@ -39,3 +39,10 @@ bool Sphere::hit(const Ray &ray, float tMin, float tMax, HitRecord &hit) const
     }
     return false;
 }
+
+bool Sphere::boundingBox(double t0, double t1, AABB &box) const
+{
+    box.minimum = centre - vec3(radius);
+    box.maximum = centre + vec3(radius);
+    return true;
+}
