@@ -30,6 +30,11 @@ struct vec2
         return (this->x != other.x && this->y != other.y);
     }
 
+    constexpr const T &operator[](size_t i) const
+    {
+        return (&x)[i];
+    }
+
     T x, y;
 };
 
@@ -141,6 +146,11 @@ struct vec3
     constexpr bool operator!=(vec3<T> other) const
     {
         return (this->x != other.x && this->y != other.y && this->z != other.z);
+    }
+
+    constexpr const T &operator[](size_t i) const
+    {
+        return (&x)[i];
     }
 
     T x, y, z;
@@ -261,6 +271,11 @@ struct vec4
     {
         return (this->x != other.x && this->y != other.y &&
             this->z != other.z && this->w != other.w);
+    }
+
+    constexpr const T &operator[](size_t i) const
+    {
+        return (&x)[i];
     }
 
     T x, y, z, w;
