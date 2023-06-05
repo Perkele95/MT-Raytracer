@@ -9,7 +9,7 @@ int main()
         RaytracingSettings settings;
         settings.imageX = 1280;
         settings.imageY = 720;
-        settings.samplingLevel = 150;
+        settings.samplingLevel = 2;
         settings.aperture = 0.27f;
         settings.filename = "raytraced";
         auto rt = Raytracer(settings);

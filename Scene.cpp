@@ -55,7 +55,7 @@ void Scene::generate()
 
 vec3<float> Scene::getRayColour(const Ray &ray, int32_t depth) const
 {
-    HitData hit;
+    HitRecord hit;
 
     if(trace(ray, hit))
     {
@@ -76,18 +76,15 @@ vec3<float> Scene::getRayColour(const Ray &ray, int32_t depth) const
     }
 }
 
-bool Scene::trace(const Ray &ray, HitData &hit) const
+bool Scene::trace(const Ray &ray, HitRecord &hit) const
 {
-    constexpr auto TMIN = 0.001f;
-    constexpr auto TMAX = float(0xffffffff);
-
     bool result = false;
-    float closest = TMAX;
-    HitData temp;
+    float closest = T_MAX;
+    HitRecord temp;
 
     for (const auto &shape : shapes)
     {
-        if(shape->hit(ray, TMIN, closest, temp))
+        if(shape->hit(ray, T_MIN, closest, temp))
         {
             closest = temp.t;
             hit = temp;

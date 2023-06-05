@@ -15,9 +15,9 @@ public:
     Sphere() = default;
     Sphere(vec3<float> c, float r, std::unique_ptr<Material> &&m): centre(c), radius(r), material(std::move(m)){}
 
-    bool hit(const Ray &ray, float tMin, float tMax, HitData &hit) const override;
+    bool hit(const Ray &ray, float tMin, float tMax, HitRecord &hit) const final;
 
-    vec3<float> centre;
-    float radius;
+    vec3<float> centre{};
+    float radius{};
     std::unique_ptr<Material> material;
 };

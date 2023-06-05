@@ -8,7 +8,7 @@
 
 struct Material;
 
-struct HitData
+struct HitRecord
 {
     float t = 0.0f;
     vec3<float> point = {};
@@ -20,5 +20,5 @@ class Shape
 {
 public:
     virtual ~Shape() = default;
-    virtual bool hit(const Ray &ray, float tMin, float tMax, HitData &hit) const = 0;
+    virtual bool hit(const Ray &ray, float tMin, float tMax, HitRecord &hit) const = 0;
 };

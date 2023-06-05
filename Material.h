@@ -12,7 +12,7 @@ class Material
 public:
     virtual ~Material() = default;
     virtual bool scatter(const Ray &rayIn,
-                         const HitData &hitData,
+                         const HitRecord &hitData,
                          vec3<float> &attenuation,
                          Ray &scattered) const = 0;
 };
@@ -20,12 +20,12 @@ public:
 class Lambertian : public Material
 {
 public:
-    Lambertian(vec3<float> a): albedo(a){}
+    explicit Lambertian(vec3<float> a): albedo(a){}
 
     bool scatter(const Ray &rayIn,
-                 const HitData &hit,
+                 const HitRecord &hit,
                  vec3<float> &attenuation,
-                 Ray &scattered) const override;
+                 Ray &scattered) const final;
 
     vec3<float> albedo;
 };
@@ -36,9 +36,9 @@ public:
     Metal(vec3<float> a, float f): albedo(a), fuzz(f){}
 
     bool scatter(const Ray &rayIn,
-                 const HitData &hit,
+                 const HitRecord &hit,
                  vec3<float> &attenuation,
-                 Ray &scattered) const override;
+                 Ray &scattered) const final;
 
     vec3<float> albedo;
     float fuzz;
@@ -47,12 +47,12 @@ public:
 class Dielectric : public Material
 {
 public:
-    Dielectric(float rI): refractionIndex(rI){}
+    explicit Dielectric(float rI): refractionIndex(rI){}
 
     bool scatter(const Ray &rayIn,
-                 const HitData &hit,
+                 const HitRecord &hit,
                  vec3<float> &attenuation,
-                 Ray &scattered) const override;
+                 Ray &scattered) const final;
 
     float refractionIndex;
 };

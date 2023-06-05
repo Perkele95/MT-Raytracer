@@ -8,6 +8,9 @@
 
 class Scene
 {
+    constexpr static auto T_MIN = 0.001f;
+    constexpr static auto T_MAX = float(0xffffffff);
+
 public:
     explicit Scene(const RaytracingSettings *settings): st(settings){}
 
@@ -15,7 +18,7 @@ public:
     [[nodiscard]] vec3<float> getRayColour(const Ray &ray, int32_t depth) const;
 
 private:
-    bool trace(const Ray &ray, HitData &hit) const;
+    bool trace(const Ray &ray, HitRecord &hit) const;
 
     const RaytracingSettings *st;
     std::vector<std::unique_ptr<Shape>> shapes;

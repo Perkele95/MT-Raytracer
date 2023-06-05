@@ -4,7 +4,7 @@
 
 #include "Sphere.h"
 
-bool Sphere::hit(const Ray &ray, float tMin, float tMax, HitData &hit) const
+bool Sphere::hit(const Ray &ray, float tMin, float tMax, HitRecord &hit) const
 {
     auto oc = ray.origin - centre;
     float a = dot(ray.direction, ray.direction);
