@@ -6,13 +6,12 @@ int main()
 {
     try
     {
-        RaytracingSettings settings;
-        settings.imageX = 1280;
-        settings.imageY = 720;
-        settings.samplingLevel = 2;
-        settings.aperture = 0.27f;
-        settings.filename = "raytraced";
-        auto rt = Raytracer(settings);
+        RaytracerSettings::ImageX = 1280;
+        RaytracerSettings::ImageY = 720;
+        RaytracerSettings::SamplingLevel = 2;
+        RaytracerSettings::Aperture = 0.27f;
+        RaytracerSettings::Filename = "raytraced";
+        auto rt = Raytracer();
     }
     catch (std::runtime_error &e)
     {

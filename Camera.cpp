@@ -3,12 +3,12 @@
 //
 
 #include "Camera.h"
-#include "Utils.h"
 
-Camera::Camera(vec3<float> lookFrom, vec3<float> lookAt, float fov, float aspectRatio, float aperture, float focusDist):
-    origin(lookFrom), lensRadius(aperture / 2.0f)
+Camera::Camera(vec3<float> lookFrom, vec3<float> lookAt, float focusDist):
+    origin(lookFrom), lensRadius(RaytracerSettings::Aperture / 2.0f)
 {
-    float theta = fov * PI32 / 180.0f;
+    const auto aspectRatio = float(RaytracerSettings::ImageX) / float(RaytracerSettings::ImageY);
+    float theta = RaytracerSettings::Fov * PI32 / 180.0f;
     float halfHeight = std::tan(theta / 2.0f);
     float halfWidth = aspectRatio * halfHeight;
 

@@ -62,7 +62,7 @@ vec3<float> Scene::getRayColour(const Ray &ray, int32_t depth) const
         auto scattered = Ray();
         auto attenuation = vec3<float>();
 
-        if(depth < st->depthMax && hit.material->scatter(ray, hit, attenuation, scattered))
+        if(depth < RaytracerSettings::DepthMax && hit.material->scatter(ray, hit, attenuation, scattered))
             return hadamard(attenuation, getRayColour(scattered, depth + 1));
         else
             return vec3(0.0f);
@@ -72,7 +72,7 @@ vec3<float> Scene::getRayColour(const Ray &ray, int32_t depth) const
         // Sky colour
         auto direction = normalise(ray.direction);
         float t = 0.5f * (direction.y + 1.0f);
-        return (1.0f - t) * st->sky_bottom + t * st->sky_top;
+        return (1.0f - t) * RaytracerSettings::Sky_bottom + t * RaytracerSettings::Sky_top;
     }
 }
 
@@ -80,10 +80,10 @@ bool Scene::trace(const Ray &ray, HitRecord &hit) const
 {
     bool result = false;
     float closest = T_MAX;
-    HitRecord temp;
 
     for (const auto &shape : shapes)
     {
+        HitRecord temp;
         if(shape->hit(ray, T_MIN, closest, temp))
         {
             closest = temp.t;

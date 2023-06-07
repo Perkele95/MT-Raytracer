@@ -5,17 +5,17 @@
 #pragma once
 
 #include "Scene.h"
+#include "Camera.h"
 
 class Raytracer
 {
 public:
-    explicit Raytracer(const RaytracingSettings &settings);
+    Raytracer();
 
 private:
     void createImage();
 
     static void compute(SharedData *shared);
 
-    RaytracingSettings  st;
-    Scene               scene;
+    Scene                       scene;
 };

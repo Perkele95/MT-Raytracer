@@ -4,7 +4,20 @@
 
 #include "Raytracer.h"
 
-Raytracer::Raytracer(const RaytracingSettings &settings): st(settings), scene(&settings)
+namespace RaytracerSettings
+{
+    std::string Filename = "raytraced";
+    int32_t DepthMax = 50;
+    int32_t SamplingLevel = 100;
+    int32_t ImageX = 300;
+    int32_t ImageY = 200;
+    float Fov = 23.0f;
+    float Aperture = 0.2f;
+    vec3<float> Sky_bottom = vec3(1.0f);
+    vec3<float> Sky_top = Utils::Colour(45, 151, 237);
+}
+
+Raytracer::Raytracer(): scene()
 {
     scene.generate();
     createImage();
@@ -12,27 +25,27 @@ Raytracer::Raytracer(const RaytracingSettings &settings): st(settings), scene(&s
 
 void Raytracer::createImage()
 {
-    std::ofstream output(st.filename + ".ppm");
-    output << "P3\n" << st.imageX << " " << st.imageY << "\n255\n";
+    std::ofstream output(RaytracerSettings::Filename + ".ppm");
+    output << "P3\n" << RaytracerSettings::ImageX << " " << RaytracerSettings::ImageY << "\n255\n";
 
     const auto lookFrom = vec3(12.0f, 1.6f, 2.5f);
     const auto lookAt =  vec3(0.0f, 0.0f, 0.0f);
 
-    float focus = length(lookFrom - lookAt);
-    auto camera = Camera(lookFrom, lookAt, st.fov, float(st.imageX) / float(st.imageY), st.aperture, focus);
+    float focalLength = length(lookFrom - lookAt);
+    auto camera = Camera(lookFrom, lookAt, focalLength);
 
     SharedData shared{};
     shared.scene = &scene;
     shared.camera = &camera;
-    shared.jobs.resize(st.imageY);
-    shared.rows.resize(st.imageY);
+    shared.jobs.resize(RaytracerSettings::ImageY);
+    shared.rows.resize(RaytracerSettings::ImageY);
 
-    for (int32_t i = 0; i < st.imageY; i++)
+    for (int32_t i = 0; i < RaytracerSettings::ImageY; i++)
     {
-        shared.jobs[i].width = st.imageX;
-        shared.jobs[i].height = st.imageY;
+        shared.jobs[i].width = RaytracerSettings::ImageX;
+        shared.jobs[i].height = RaytracerSettings::ImageY;
         shared.jobs[i].rowIndex = i;
-        shared.jobs[i].samplingLevel = st.samplingLevel;
+        shared.jobs[i].samplingLevel = RaytracerSettings::SamplingLevel;
     }
 
     auto threadCount = std::thread::hardware_concurrency();

@@ -11,24 +11,23 @@
 #include <thread>
 #include <sstream>
 
-#include "Camera.h"
 #include "Sphere.h"
 #include "Material.h"
 
 using Pixel = vec3<int32_t>;
 
-struct RaytracingSettings
+namespace RaytracerSettings
 {
-    std::string filename;
-    int32_t depthMax = 50;
-    int32_t samplingLevel = 100;
-    int32_t imageX = 300;
-    int32_t imageY = 200;
-    float fov = 23.0f;
-    float aperture = 0.2f;
-    vec3<float> sky_bottom = vec3(1.0f);
-    vec3<float> sky_top = Utils::Colour(45, 151, 237);
-};
+    extern std::string Filename;
+    extern int32_t DepthMax;
+    extern int32_t SamplingLevel;
+    extern int32_t ImageX;
+    extern int32_t ImageY;
+    extern float Fov;
+    extern float Aperture;
+    extern vec3<float> Sky_bottom;
+    extern vec3<float> Sky_top;
+}
 
 struct ComputeJob
 {
@@ -39,6 +38,7 @@ struct ComputeJob
 };
 
 struct Scene;
+struct Camera;
 
 struct SharedData
 {
