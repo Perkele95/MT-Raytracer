@@ -12,6 +12,7 @@ namespace Utils
     constexpr double PI64 = 3.141592653589793;
 
     float RandFloat();
+    int32_t RandInt(int32_t min, int32_t max);
     vec3<float> RandomInUnitSphere();
     vec3<float> RandomInUnitDisk();
     vec3<float> Reflect(vec3<float> a, vec3<float> b);

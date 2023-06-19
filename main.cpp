@@ -8,7 +8,7 @@ int main()
     {
         RaytracerSettings::ImageX = 1280;
         RaytracerSettings::ImageY = 720;
-        RaytracerSettings::SamplingLevel = 2;
+        RaytracerSettings::SamplingLevel = 5;
         RaytracerSettings::Aperture = 0.27f;
         RaytracerSettings::Filename = "raytraced";
         auto rt = Raytracer();

@@ -28,29 +28,3 @@ namespace RaytracerSettings
     extern vec3<float> Sky_bottom;
     extern vec3<float> Sky_top;
 }
-
-struct ComputeJob
-{
-    int32_t rowIndex;
-    int32_t width;
-    int32_t height;
-    int32_t samplingLevel;
-};
-
-struct Scene;
-struct Camera;
-
-struct SharedData
-{
-    // Read only
-
-    const Scene *scene;
-    const Camera *camera;
-
-    // Mutex locked shared resources
-
-    std::vector<ComputeJob> jobs;
-    std::vector<std::vector<Pixel> > rows;
-
-    std::mutex mutex;
-};

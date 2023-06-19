@@ -15,7 +15,5 @@ public:
 private:
     void createImage();
 
-    static void compute(SharedData *shared);
-
     Scene                       scene;
 };

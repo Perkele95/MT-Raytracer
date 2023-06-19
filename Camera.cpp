@@ -8,7 +8,7 @@ Camera::Camera(vec3<float> lookFrom, vec3<float> lookAt, float focusDist):
     origin(lookFrom), lensRadius(RaytracerSettings::Aperture / 2.0f)
 {
     const auto aspectRatio = float(RaytracerSettings::ImageX) / float(RaytracerSettings::ImageY);
-    float theta = RaytracerSettings::Fov * PI32 / 180.0f;
+    float theta = RaytracerSettings::Fov * Utils::PI32 / 180.0f;
     float halfHeight = std::tan(theta / 2.0f);
     float halfWidth = aspectRatio * halfHeight;
 

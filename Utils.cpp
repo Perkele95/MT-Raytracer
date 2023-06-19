@@ -6,47 +6,33 @@
 
 #include "Utils.h"
 
-#define RAYTRACER_FAST_FN
-
 namespace Utils
 {
     static std::random_device device;
     static std::mt19937 generator(device());
-    static std::uniform_real_distribution<> distribution(0.0f, 0.9999999f);
+    static std::uniform_real_distribution<> realDistribution(0.0f, 0.9999999f);
 
     float RandFloat()
     {
-        return static_cast<float>(distribution(generator));
+        return static_cast<float>(realDistribution(generator));
+    }
+
+    int32_t RandInt(int32_t min, int32_t max)
+    {
+        std::uniform_int_distribution<> intDistribution(min, max);
+        return intDistribution(generator);
     }
 
     vec3<float> RandomInUnitSphere()
     {
-#ifdef RAYTRACER_FAST_FN
         auto v = 2.0f * vec3(RandFloat(), RandFloat(), RandFloat()) - vec3(1.0f);
         return normalise(v) * RandFloat();
-#else
-        vec3<float> p;
-    do
-    {
-        p = 2.0f * vec3(randFloat(), randFloat(), randFloat()) - vec3{1.0f, 1.0f, 1.0f};
-    } while (length(p) >= 1.0f);
-    return p;
-#endif
     }
 
     vec3<float> RandomInUnitDisk()
     {
-#ifdef RAYTRACER_FAST_FN
         auto v = 2.0f * vec3(RandFloat(), RandFloat(), 0.0f) - vec3(1.0f, 1.0f, 0.0f);
         return normalise(v) * RandFloat();
-#else
-        vec3<float> p;
-    do
-    {
-        p = 2.0f * vec3(randFloat(), randFloat(), 0.0f) - vec3{1.0f, 1.0f, 0.0f};
-    } while (dot(p, p) >= 1.0f);
-    return p;
-#endif
     }
 
     vec3<float> Reflect(vec3<float> a, vec3<float> b)
